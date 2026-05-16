@@ -1,7 +1,7 @@
-public class coach extends Person {
+public class Coach extends Person {
     private int workinghours;
 
-    public coach(int id, 
+    public Coach(int id, 
                 String name, String gender, String address, String phonenumber, String email, int workinghours)
     {
         super(id, name, gender, address, phonenumber, email);
