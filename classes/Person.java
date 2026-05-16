@@ -67,9 +67,7 @@ public class Person {
         return email;
     }
 
-    Equipment m1 = new Equipment();
-
-    m1
+    
 
 
 }
