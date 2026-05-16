@@ -1,3 +1,4 @@
+package gym;
 public class Coach extends Person {
     private int workingHours;
     public Coach(int id, 
@@ -6,16 +7,15 @@ public class Coach extends Person {
                 String address,
                 String phoneNumber, 
                 String email,
-                int workingHours)
-    {
+                int workingHours) throws Exception {
         super(id, name, gender, address, phoneNumber, email);
         setWorkingHours(workingHours);
     }
-    public void setWorkingHours(int workingHours) {
+    public void setWorkingHours(int workingHours) throws Exception {
         if(workingHours < 0) {
-            throw new java.lang.Error("working hours must be non-negative.");
+            throw new Exception("working hours must be non-negative.");
         }else if(workingHours > 10) {
-            throw new java.lang.Error("working hours must be less than or equal to 10.");
+            throw new Exception("working hours must be less than or equal to 10.");
         }else 
             this.workingHours = workingHours;
     }
