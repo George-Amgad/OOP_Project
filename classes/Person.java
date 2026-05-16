@@ -66,4 +66,10 @@ public class Person {
     public String getEmail() {
         return email;
     }
+
+    Equipment m1 = new Equipment();
+
+    m1
+
+
 }
