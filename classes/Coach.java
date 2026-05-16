@@ -1,24 +1,27 @@
 public class Coach extends Person {
-    private int workinghours;
-
+    private int workingHours;
     public Coach(int id, 
-                String name, String gender, String address, String phonenumber, String email, int workinghours)
+                String name,
+                String gender,
+                String address,
+                String phoneNumber, 
+                String email,
+                int workingHours)
     {
-        super(id, name, gender, address, phonenumber, email);
-        setWorkinghours(workinghours);
+        super(id, name, gender, address, phoneNumber, email);
+        setWorkingHours(workingHours);
     }
-    public void setWorkinghours(int workinghours) {
-        if(workinghours < 0) {
+    public void setWorkingHours(int workingHours) {
+        if(workingHours < 0) {
             throw new java.lang.Error("working hours must be non-negative.");
-        }else if(workinghours > 10) {
+        }else if(workingHours > 10) {
             throw new java.lang.Error("working hours must be less than or equal to 10.");
         }else 
-            this.workinghours = workinghours;
+            this.workingHours = workingHours;
     }
-    public int getWorkinghours() {
-        return workinghours;
+    public int getWorkingHours() {
+        return workingHours;
     }
-
     public String toString() {
         return "coach:\n" +
             "  ID: " + getId() + "\n" +
@@ -27,7 +30,6 @@ public class Coach extends Person {
             "  Address: " + getAddress() + "\n" +
             "  Phone Number: " + getPhoneNumber() + "\n" +
             "  Email: " + getEmail() + "\n" +
-            "  Working Hours: " + workinghours;
+            "  Working Hours: " + getWorkingHours();
     }
-
 }
