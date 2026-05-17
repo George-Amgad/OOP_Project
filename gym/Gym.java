@@ -43,9 +43,6 @@ public class Gym {
     public void addCoach(Coach coach){
         this.coaches.add(coach);    
     }
-    public void addSubscriptions(Subscription subscription){
-        this.subscriptions.add(subscription);
-    }
     private String getSportsEquipments() {
         String result = "\n--- Gym Sports Equipments ---\n";
         for (int i = 0 ; i < sportsEquipments.size() ; i++){
@@ -78,4 +75,29 @@ public class Gym {
             + "\n\tPhone Number: " + phoneNumber + getSportsEquipments() + getCoaches();
         return result;
     }
+
+
+    public void addSubscriptions(Subscription subscription)throws Exception {
+        int countSub = 0 ;
+        for(int i = 0 ; i < subscriptions.size(); i++){
+            Subscription existingsub = subscriptions.get(i);
+
+            if (existingsub.getCoachId() == (subscription.getCoachId())){
+                countSub++;
+            }
+        }
+
+        if (countSub>10){
+            throw new Exception("This coach has reached the maximum limit of 10 customers!");
+        }
+        else 
+            this.subscriptions.add(subscription);
+    }
+
+
+
+        //public void addSubscriptions(Subscription subscription){
+      //  this.subscriptions.add(subscription);
+    //}
+
 }
