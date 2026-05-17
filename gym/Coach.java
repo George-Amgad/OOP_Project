@@ -3,7 +3,7 @@ public class Coach extends Person {
     private int workingHours;
     public Coach(int id, 
                 String name,
-                String gender,
+                Gender gender,
                 String address,
                 String phoneNumber, 
                 String email,

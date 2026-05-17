@@ -75,29 +75,18 @@ public class Gym {
             + "\n\tPhone Number: " + phoneNumber + getSportsEquipments() + getCoaches();
         return result;
     }
-
-
-    public void addSubscriptions(Subscription subscription)throws Exception {
+    public void addSubscription(Subscription subscription) throws Exception {
         int countSub = 0 ;
         for(int i = 0 ; i < subscriptions.size(); i++){
             Subscription existingsub = subscriptions.get(i);
-
             if (existingsub.getCoachId() == (subscription.getCoachId())){
                 countSub++;
             }
         }
-
-        if (countSub>10){
+        if (countSub >= 10){
             throw new Exception("This coach has reached the maximum limit of 10 customers!");
         }
         else 
             this.subscriptions.add(subscription);
     }
-
-
-
-        //public void addSubscriptions(Subscription subscription){
-      //  this.subscriptions.add(subscription);
-    //}
-
 }

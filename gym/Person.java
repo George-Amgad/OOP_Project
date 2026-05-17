@@ -1,11 +1,13 @@
 package gym;
+enum Gender {male, female}
 public class Person {
     private int id;
-    private String name, phoneNumber, gender, address, email;
+    private String name, phoneNumber, address, email;
+    private Gender gender;
     // constructor
     public Person(int id, 
                 String name, 
-                String gender,
+                Gender gender,
                 String address, 
                 String phoneNumber, 
                 String email) throws Exception {
@@ -38,14 +40,13 @@ public class Person {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    public void setGender(String gender) throws Exception {
-        gender = gender.toLowerCase();
-        if(!(gender.equals("male") || gender.equals("female"))) {
+    public void setGender(Gender gender) throws Exception {
+        if(!(gender == Gender.male || gender == Gender.female)) {
             throw new Exception("gender must be 'male' or 'female'.");
         }
         this.gender = gender;
     }
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
     public void setAddress(String address) throws Exception {
