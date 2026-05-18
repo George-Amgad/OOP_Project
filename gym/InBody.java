@@ -1,0 +1,118 @@
+package gym;
+
+import java.time.LocalDate;
+import java.util.Objects;
+
+public class InBody {
+
+    private LocalDate date;
+    private float height;
+    private float weight;
+    private float bodyFatMass;
+    private float minerals;
+    private float totalBodyWater;
+    private float protein;
+
+    public InBody() {
+    }
+
+    public InBody(LocalDate date, float height, float weight, float bodyFatMass, float minerals, float totalBodyWater,
+            float protein) {
+        this.date = date;
+        this.height = height;
+        this.weight = weight;
+        this.bodyFatMass = bodyFatMass;
+        this.minerals = minerals;
+        this.totalBodyWater = totalBodyWater;
+        this.protein = protein;
+    }
+
+    // ===== Getters & Setters =====
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public float getBodyFatMass() {
+        return bodyFatMass;
+    }
+
+    public void setBodyFatMass(float bodyFatMass) {
+        this.bodyFatMass = bodyFatMass;
+    }
+
+    public float getMinerals() {
+        return minerals;
+    }
+
+    public void setMinerals(float minerals) {
+        this.minerals = minerals;
+    }
+
+    public float getTotalBodyWater() {
+        return totalBodyWater;
+    }
+
+    public void setTotalBodyWater(float totalBodyWater) {
+        this.totalBodyWater = totalBodyWater;
+    }
+
+    public float getProtein() {
+        return protein;
+    }
+
+    public void setProtein(float protein) {
+        this.protein = protein;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof InBody))
+            return false;
+        InBody inBody = (InBody) o;
+        return Float.compare(inBody.height, height) == 0
+                && Float.compare(inBody.weight, weight) == 0
+                && Float.compare(inBody.bodyFatMass, bodyFatMass) == 0
+                && Float.compare(inBody.minerals, minerals) == 0
+                && Float.compare(inBody.totalBodyWater, totalBodyWater) == 0
+                && Float.compare(inBody.protein, protein) == 0
+                && Objects.equals(date, inBody.date);
+    }
+
+    public int hashCode() {
+        return Objects.hash(date, height, weight, bodyFatMass,
+                minerals, totalBodyWater, protein);
+    }
+
+    public String toString() {
+        return "InBody{" +
+                "date=" + date +
+                ", height=" + height + " m" +
+                ", weight=" + weight + " kg" +
+                ", bodyFatMass=" + bodyFatMass + " kg" +
+                ", minerals=" + minerals + " kg" +
+                ", totalBodyWater=" + totalBodyWater + " kg" +
+                ", protein=" + protein + " kg" +
+                '}';
+    }
+}
