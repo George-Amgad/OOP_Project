@@ -1,92 +1,110 @@
 package gym;
+
 import java.util.ArrayList;
 import java.util.List;
+
 public class Gym {
-    private String name, address, phoneNumber;
+    private String name;
+    private String address;
+    private String phoneNumber;
     private List<Equipment> sportsEquipments;
     private List<Coach> coaches;
     private List<Subscription> subscriptions;
-    // Constructor
-    public Gym(String name, String address, String phoneNumber){
-        setName (name);
-        setAddress (address);
+
+    public Gym(String name, String address, String phoneNumber) {
+        setName(name);
+        setAddress(address);
         setPhoneNumber(phoneNumber);
         this.sportsEquipments = new ArrayList<>();
         this.coaches = new ArrayList<>();
         this.subscriptions = new ArrayList<>();
     }
-    // setters, getters and adders
-    public void setName (String name){
-        this.name= name;
+
+    public void setName(String name) {
+        this.name = name;
     }
-    public String getName (){
+
+    public String getName() {
         return name;
     }
-    public void setAddress(String address){
+
+    public void setAddress(String address) {
         this.address = address;
     }
-    public String getAddress(){
+
+    public String getAddress() {
         return address;
     }
+
     public void setPhoneNumber(String phoneNumber) {
-        if(phoneNumber.length() != 11) {
-            throw new java.lang.Error("phone number must be 11 digits.");
+        if (phoneNumber == null || phoneNumber.length() != 11) {
+            throw new IllegalArgumentException("Phone number must be 11 digits.");
         }
         this.phoneNumber = phoneNumber;
     }
-    public String getPhoneNumber(){
+
+    public String getPhoneNumber() {
         return phoneNumber;
     }
-    public void addSportsEquipments (Equipment E1){
-        this.sportsEquipments.add(E1);
+
+    public void addSportsEquipment(Equipment equipment) {
+        this.sportsEquipments.add(equipment);
     }
-    public void addCoach(Coach coach){
-        this.coaches.add(coach);    
+
+    public void addCoach(Coach coach) {
+        this.coaches.add(coach);
     }
+
     private String getSportsEquipments() {
-        String result = "\n--- Gym Sports Equipments ---\n";
-        for (int i = 0 ; i < sportsEquipments.size() ; i++){
-            Equipment e = sportsEquipments.get(i);
-            result +=(i + 1)
-            + "Name: " + e.getName() +"\n"
-            + "Code: " + e.getCode() + "\n"
-            + "Qty: " + e.getQuantity()+ "\n";
+        StringBuilder result = new StringBuilder("\n--- Gym Sports Equipments ---\n");
+        for (int i = 0; i < sportsEquipments.size(); i++) {
+            Equipment equipment = sportsEquipments.get(i);
+            result.append(i + 1)
+                .append(". Name: ").append(equipment.getName()).append("\n")
+                .append("Code: ").append(equipment.getCode()).append("\n")
+                .append("Qty: ").append(equipment.getQuantity()).append("\n");
         }
-        return result;
+        return result.toString();
     }
+
     private String getCoaches() {
-        String result = "\n--- Coaches ---\n";
-        for (int i = 0 ; i < coaches.size() ; i++){
-            Coach c = coaches.get(i);
-            result += (i + 1)+ "Name: " + c.getName() +"\n";
+        StringBuilder result = new StringBuilder("\n--- Coaches ---\n");
+        for (int i = 0; i < coaches.size(); i++) {
+            Coach coach = coaches.get(i);
+            result.append(i + 1).append(". Name: ").append(coach.getName()).append("\n");
         }
-        return result;
+        return result.toString();
     }
-    // display methods
-    public void displaySportsEquipments() { 
+
+    public void displaySportsEquipments() {
         System.out.println(getSportsEquipments());
     }
-    public void displaycoaches() { 
+
+    public void displayCoaches() {
         System.out.println(getCoaches());
     }
-    // toString method
+
+    @Override
     public String toString() {
-        String result = "Gym\n\tGym Name: " + name + "\n\tAddress: " + address
-            + "\n\tPhone Number: " + phoneNumber + getSportsEquipments() + getCoaches();
-        return result;
+        return "Gym\n\tGym Name: " + name
+            + "\n\tAddress: " + address
+            + "\n\tPhone Number: " + phoneNumber
+            + getSportsEquipments()
+            + getCoaches();
     }
-    public void addSubscription(Subscription subscription) throws Exception {
-        int countSub = 0 ;
-        for(int i = 0 ; i < subscriptions.size(); i++){
-            Subscription existingsub = subscriptions.get(i);
-            if (existingsub.getCoachId() == (subscription.getCoachId())){
+
+    public void addSubscription(Subscription subscription) {
+        int countSub = 0;
+        for (int i = 0; i < subscriptions.size(); i++) {
+            Subscription existingSub = subscriptions.get(i);
+            if (existingSub.getCoachId() == subscription.getCoachId()) {
                 countSub++;
             }
         }
-        if (countSub >= 10){
-            throw new Exception("This coach has reached the maximum limit of 10 customers!");
-        }
-        else 
+        if (countSub >= 10) {
+            throw new IllegalArgumentException("This coach has reached the maximum limit of 10 customers!");
+        } else {
             this.subscriptions.add(subscription);
+        }
     }
 }

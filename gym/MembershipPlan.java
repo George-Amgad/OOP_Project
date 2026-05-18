@@ -1,115 +1,90 @@
 package gym;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class MembershipPlan {
     private int monthlyPlan;
     private int monthsRegistered;
-    private float price;
+    private double price;
     private LocalDate startDate;
-    private DateTimeFormatter DateFormat;
-    private final int Price_3_Times_Per_Week = 300;
-    private final int Price_5_Times_Per_Week = 450;
-    private final double Discount_3_to_5_months = 0.05;
-    private final double Discount_6_to_9_months = 0.10;
-    private final double Discount_10_to_12_months = 0.18;
+    private static final int PRICE_3_TIMES_PER_WEEK = 300;
+    private static final int PRICE_5_TIMES_PER_WEEK = 450;
+    private static final double DISCOUNT_3_TO_5_MONTHS = 0.05;
+    private static final double DISCOUNT_6_TO_9_MONTHS = 0.10;
+    private static final double DISCOUNT_10_TO_12_MONTHS = 0.18;
 
-    public void SetmonthlyPlan(int monthlyPlan) {
+    public MembershipPlan(int monthlyPlan, int monthsRegistered) {
+        setMonthlyPlan(monthlyPlan);
+        setMonthsRegistered(monthsRegistered);
+        calculatePrice();
+    }
+
+    public void setMonthlyPlan(int monthlyPlan) {
         this.monthlyPlan = monthlyPlan;
     }
 
-    public int GetmonthlyPlan() {
+    public int getMonthlyPlan() {
         return monthlyPlan;
     }
 
-    public void SetmonthsRegistered(int monthsRegistered) {
+    public void setMonthsRegistered(int monthsRegistered) {
         this.monthsRegistered = monthsRegistered;
     }
 
-    public int GetmonthsRegistered() {
+    public int getMonthsRegistered() {
         return monthsRegistered;
     }
 
-    public void price(float price) {
-        this.price = price;
-    }
-
-    public float Getprice() {
+    public double getPrice() {
         return price;
     }
 
-    public void SetstartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate GetstartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void SetDateFormat(DateTimeFormatter DateFormat) {
-        this.DateFormat = DateFormat;
-    }
-
-    public DateTimeFormatter GetDateFormat() {
-        return DateFormat;
-    }
-
-    public MembershipPlan() {
-
-        this.DateFormat = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-    }
-
-    public MembershipPlan(int monthlyPlan, int monthsRegistered) {
-        this.monthlyPlan = monthlyPlan;
-        this.monthsRegistered = monthsRegistered;
-        Calculate_Price();
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public double getDiscountRate() {
         if (monthsRegistered >= 3 && monthsRegistered <= 5) {
-            return Discount_3_to_5_months;
+            return DISCOUNT_3_TO_5_MONTHS;
         } else if (monthsRegistered >= 6 && monthsRegistered <= 9) {
-            return Discount_6_to_9_months;
+            return DISCOUNT_6_TO_9_MONTHS;
         } else if (monthsRegistered >= 10 && monthsRegistered <= 12) {
-            return Discount_10_to_12_months;
-
+            return DISCOUNT_10_TO_12_MONTHS;
         }
         return 0;
     }
 
-    public float Calculate_Price() {
-        int Month_Price;
+    public double calculatePrice() {
+        int monthPrice;
         if (monthlyPlan == 3) {
-            Month_Price = Price_3_Times_Per_Week;
+            monthPrice = PRICE_3_TIMES_PER_WEEK;
         } else if (monthlyPlan == 5) {
-            Month_Price = Price_5_Times_Per_Week;
+            monthPrice = PRICE_5_TIMES_PER_WEEK;
         } else {
             throw new IllegalArgumentException("Monthly plan must be 3 or 5 times per week");
         }
-
-        double Total_price = Month_Price * monthsRegistered;
-        double Discount_Rate = getDiscountRate();
-        double final_Price = Total_price - (Total_price * Discount_Rate);
-        this.price = (float) final_Price;
-        return this.price;
+        double totalPrice = monthPrice * monthsRegistered;
+        double discountRate = getDiscountRate();
+        price = totalPrice - (totalPrice * discountRate);
+        return price;
     }
 
-    public int SubtractingDateByDays(LocalDate D1, LocalDate D2) {
-        if (D1 == null || D2 == null) {
-            throw new IllegalArgumentException("Date Can't To Be null ");
+    public int subtractDateByDays(LocalDate date1, LocalDate date2) {
+        if (date1 == null || date2 == null) {
+            throw new IllegalArgumentException("Date cannot be null");
         }
-        long Diff = ChronoUnit.DAYS.between(D1, D2);
-        return (int) Diff;
+        return (int) ChronoUnit.DAYS.between(date1, date2);
     }
 
-    public int SubtractingDateByMonth(LocalDate D1, LocalDate D2) {
-        if (D1 == null || D2 == null) {
-            throw new IllegalArgumentException("Date Can't To Be null ");
+    public int subtractDateByMonths(LocalDate date1, LocalDate date2) {
+        if (date1 == null || date2 == null) {
+            throw new IllegalArgumentException("Date cannot be null");
         }
-        long Diff = ChronoUnit.MONTHS.between(D1, D2);
-        return (int) Diff;
+        return (int) ChronoUnit.MONTHS.between(date1, date2);
     }
-
 }

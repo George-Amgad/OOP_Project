@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class InBody {
-
     private LocalDate date;
     private float height;
     private float weight;
@@ -16,18 +15,22 @@ public class InBody {
     public InBody() {
     }
 
-    public InBody(LocalDate date, float height, float weight, float bodyFatMass, float minerals, float totalBodyWater,
-            float protein) {
+    public InBody(LocalDate date,
+                  float height,
+                  float weight,
+                  float bodyFatMass,
+                  float minerals,
+                  float totalBodyWater,
+                  float protein) {
         this.date = date;
-        this.height = height;
-        this.weight = weight;
-        this.bodyFatMass = bodyFatMass;
-        this.minerals = minerals;
-        this.totalBodyWater = totalBodyWater;
-        this.protein = protein;
+        setHeight(height);
+        setWeight(weight);
+        setBodyFatMass(bodyFatMass);
+        setMinerals(minerals);
+        setTotalBodyWater(totalBodyWater);
+        setProtein(protein);
     }
 
-    // ===== Getters & Setters =====
     public LocalDate getDate() {
         return date;
     }
@@ -41,6 +44,9 @@ public class InBody {
     }
 
     public void setHeight(float height) {
+        if (height < 0) {
+            throw new IllegalArgumentException("Height cannot be negative");
+        }
         this.height = height;
     }
 
@@ -49,6 +55,9 @@ public class InBody {
     }
 
     public void setWeight(float weight) {
+        if (weight < 0) {
+            throw new IllegalArgumentException("Weight cannot be negative");
+        }
         this.weight = weight;
     }
 
@@ -57,6 +66,9 @@ public class InBody {
     }
 
     public void setBodyFatMass(float bodyFatMass) {
+        if (bodyFatMass < 0) {
+            throw new IllegalArgumentException("Body fat mass cannot be negative");
+        }
         this.bodyFatMass = bodyFatMass;
     }
 
@@ -65,6 +77,9 @@ public class InBody {
     }
 
     public void setMinerals(float minerals) {
+        if (minerals < 0) {
+            throw new IllegalArgumentException("Minerals cannot be negative");
+        }
         this.minerals = minerals;
     }
 
@@ -73,6 +88,9 @@ public class InBody {
     }
 
     public void setTotalBodyWater(float totalBodyWater) {
+        if (totalBodyWater < 0) {
+            throw new IllegalArgumentException("Total body water cannot be negative");
+        }
         this.totalBodyWater = totalBodyWater;
     }
 
@@ -81,14 +99,20 @@ public class InBody {
     }
 
     public void setProtein(float protein) {
+        if (protein < 0) {
+            throw new IllegalArgumentException("Protein cannot be negative");
+        }
         this.protein = protein;
     }
 
+    @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof InBody))
+        }
+        if (!(o instanceof InBody)) {
             return false;
+        }
         InBody inBody = (InBody) o;
         return Float.compare(inBody.height, height) == 0
                 && Float.compare(inBody.weight, weight) == 0
@@ -99,11 +123,13 @@ public class InBody {
                 && Objects.equals(date, inBody.date);
     }
 
+    @Override
     public int hashCode() {
         return Objects.hash(date, height, weight, bodyFatMass,
                 minerals, totalBodyWater, protein);
     }
 
+    @Override
     public String toString() {
         return "InBody{" +
                 "date=" + date +
