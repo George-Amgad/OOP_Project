@@ -75,8 +75,11 @@ public class Gym {
         }
         return result.toString();
     }
-    //ضيفت دي النهارده  mw
-    private String getٍSubscription() {
+    // This method is used to display the subscriptions of the gym. 
+    // It iterates through the list of subscriptions and constructs 
+    // a string representation of each subscription, including the 
+    // coach ID and customer ID. The resulting string is then returned.
+    private String getSubscription() {
         String result = "\n--- Subscription ---\n";
         for (int i = 0 ; i < subscriptions.size() ; i++){
             Subscription s = subscriptions.get(i);
@@ -94,9 +97,9 @@ public class Gym {
     public void displayCoaches() {
         System.out.println(getCoaches());
     }
-    // ودي كمان mw
+    
     public void displaysubscription() { 
-        System.out.println(getٍSubscription());
+        System.out.println(getSubscription());
     }
 
     @Override
@@ -106,7 +109,7 @@ public class Gym {
             + "\n\tPhone Number: " + phoneNumber
             + getSportsEquipments()
             + getCoaches()
-            +getٍSubscription();//هنا برضو
+            +getSubscription();
     }
 
     public void addSubscription(Subscription subscription) {
