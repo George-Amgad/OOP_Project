@@ -75,6 +75,17 @@ public class Gym {
         }
         return result.toString();
     }
+    //ضيفت دي النهارده  mw
+    private String getٍSubscription() {
+        String result = "\n--- Subscription ---\n";
+        for (int i = 0 ; i < subscriptions.size() ; i++){
+            Subscription s = subscriptions.get(i);
+            result += (i + 1)+
+             "Coach Id: " + s.getCoachId() +"\n" 
+             +"Customer Id: "+s.getCustomerId()+"\n";
+        }
+        return result;
+    }
 
     public void displaySportsEquipments() {
         System.out.println(getSportsEquipments());
@@ -83,6 +94,10 @@ public class Gym {
     public void displayCoaches() {
         System.out.println(getCoaches());
     }
+    // ودي كمان mw
+    public void displaysubscription() { 
+        System.out.println(getٍSubscription());
+    }
 
     @Override
     public String toString() {
@@ -90,7 +105,8 @@ public class Gym {
             + "\n\tAddress: " + address
             + "\n\tPhone Number: " + phoneNumber
             + getSportsEquipments()
-            + getCoaches();
+            + getCoaches()
+            +getٍSubscription();//هنا برضو
     }
 
     public void addSubscription(Subscription subscription) {
