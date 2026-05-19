@@ -1,5 +1,7 @@
 package gym;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -15,13 +17,14 @@ public class InBody {
     public InBody() {
     }
 
-    public InBody(LocalDate date,
-                  float height,
-                  float weight,
-                  float bodyFatMass,
-                  float minerals,
-                  float totalBodyWater,
-                  float protein) {
+    @JsonCreator
+    public InBody(@JsonProperty("date") LocalDate date,
+                  @JsonProperty("height") float height,
+                  @JsonProperty("weight") float weight,
+                  @JsonProperty("bodyFatMass") float bodyFatMass,
+                  @JsonProperty("minerals") float minerals,
+                  @JsonProperty("totalBodyWater") float totalBodyWater,
+                  @JsonProperty("protein") float protein) {
         this.date = date;
         setHeight(height);
         setWeight(weight);

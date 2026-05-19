@@ -1,11 +1,17 @@
 package gym;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Subscription {
     private int customerId;
     private int coachId;
     private MembershipPlan membershipPlan ;
 
-    public Subscription(int customerId, int coachId, MembershipPlan membershipPlan) {
+    @JsonCreator
+    public Subscription(@JsonProperty("customerId") int customerId,
+                        @JsonProperty("coachId") int coachId,
+                        @JsonProperty("membershipPlan") MembershipPlan membershipPlan) {
         this.customerId = customerId;
         this.coachId = coachId;
         this.membershipPlan = membershipPlan;

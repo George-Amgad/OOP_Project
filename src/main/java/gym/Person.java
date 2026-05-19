@@ -1,5 +1,8 @@
 package gym;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 enum Gender {
     MALE,
     FEMALE
@@ -13,12 +16,13 @@ public class Person {
     private String email;
     private Gender gender;
 
-    public Person(int id,
-                  String name,
-                  Gender gender,
-                  String address,
-                  String phoneNumber,
-                  String email) {
+    @JsonCreator
+    public Person(@JsonProperty("id") int id,
+                  @JsonProperty("name") String name,
+                  @JsonProperty("gender") Gender gender,
+                  @JsonProperty("address") String address,
+                  @JsonProperty("phoneNumber") String phoneNumber,
+                  @JsonProperty("email") String email) {
         setId(id);
         setName(name);
         setGender(gender);

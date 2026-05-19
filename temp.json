@@ -1,0 +1,13 @@
+[ {
+  "name" : "Treadmill",
+  "code" : "EQ-001",
+  "quantity" : 5
+}, {
+  "name" : "Dumbbell Set",
+  "code" : "EQ-002",
+  "quantity" : 10
+}, {
+  "name" : "Exercise Bike",
+  "code" : "EQ-003",
+  "quantity" : 3
+} ]

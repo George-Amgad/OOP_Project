@@ -1,5 +1,7 @@
 package gym;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -14,7 +16,9 @@ public class MembershipPlan {
     private static final double DISCOUNT_6_TO_9_MONTHS = 0.10;
     private static final double DISCOUNT_10_TO_12_MONTHS = 0.18;
 
-    public MembershipPlan(int monthlyPlan, int monthsRegistered) {
+    @JsonCreator
+    public MembershipPlan(@JsonProperty("monthlyPlan") int monthlyPlan,
+                          @JsonProperty("monthsRegistered") int monthsRegistered) {
         setMonthlyPlan(monthlyPlan);
         setMonthsRegistered(monthsRegistered);
         calculatePrice();

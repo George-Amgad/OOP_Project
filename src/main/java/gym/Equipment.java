@@ -1,11 +1,17 @@
 package gym;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Equipment {
     private String name;
     private String code;
     private int quantity;
 
-    public Equipment(String name, String code, int quantity) {
+    @JsonCreator
+    public Equipment(@JsonProperty("name") String name,
+                     @JsonProperty("code") String code,
+                     @JsonProperty("quantity") int quantity) {
         setName(name);
         setCode(code);
         setQuantity(quantity);

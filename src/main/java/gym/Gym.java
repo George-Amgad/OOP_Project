@@ -1,5 +1,7 @@
 package gym;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,10 @@ public class Gym {
     private List<Coach> coaches;
     private List<Subscription> subscriptions;
 
-    public Gym(String name, String address, String phoneNumber) {
+    @JsonCreator
+    public Gym(@JsonProperty("name") String name,
+               @JsonProperty("address") String address,
+               @JsonProperty("phoneNumber") String phoneNumber) {
         setName(name);
         setAddress(address);
         setPhoneNumber(phoneNumber);

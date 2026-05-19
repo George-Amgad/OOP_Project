@@ -1,15 +1,19 @@
 package gym;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Coach extends Person {
     private int workingHours;
 
-    public Coach(int id,
-                 String name,
-                 Gender gender,
-                 String address,
-                 String phoneNumber,
-                 String email,
-                 int workingHours) {
+    @JsonCreator
+    public Coach(@JsonProperty("id") int id,
+                 @JsonProperty("name") String name,
+                 @JsonProperty("gender") Gender gender,
+                 @JsonProperty("address") String address,
+                 @JsonProperty("phoneNumber") String phoneNumber,
+                 @JsonProperty("email") String email,
+                 @JsonProperty("workingHours") int workingHours) {
         super(id, name, gender, address, phoneNumber, email);
         setWorkingHours(workingHours);
     }
