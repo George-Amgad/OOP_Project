@@ -1,59 +1,116 @@
 package gym;
 
-import java.io.FileWriter;
-import java.time.LocalDate;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
         try {
-            // WORKAROUND: DataManager attempts to load data immediately upon instantiation.
-            // If temp.json doesn't exist, Jackson will throw an exception and print a stack trace.
-            // We create an empty JSON array file first to prevent this.
-            // try (FileWriter fw = new FileWriter("temp.json")) {
-            //     fw.write("[]");
-            // }
+            while (true) {
+                // init
+                DataManager dataManager = new DataManager("users.json");
+                ArrayList<Object> users = new ArrayList<>(0),
+                members = new ArrayList<>(0),
+                coaches = new ArrayList<>(0),
+                gym = new ArrayList<>(0);
 
-            // 1. Create dummy Customer data
-            ArrayList<InBody> inBodyRecords = new ArrayList<>();
-            inBodyRecords.add(new InBody(LocalDate.now(), 1.75f, 75.5f, 15.0f, 4.0f, 45.0f, 12.0f));
-            inBodyRecords.add(new InBody(LocalDate.now().minusMonths(1), 1.75f, 77.0f, 16.5f, 3.8f, 43.0f, 11.5f));
-            MembershipPlan plan = new MembershipPlan(5, 3);
-            Subscription sub = new Subscription(1, 10, plan);
-            Customer c1 = new Customer(
-                    1, 
-                    "Alice Smith", 
-                    Gender.FEMALE, // Assuming you have a Gender enum in the gym package
-                    "123 Fitness Ave", 
-                    "11111111111", 
-                    "alice@example.com", 
-                    sub,
-                    inBodyRecords
-            );
+                User user = new User();
+                try {
+                    System.out.println("Welcome to your gym management app! Type 'exit' to exit.");
+                    users = dataManager.loadData();
+                    dataManager = new DataManager("customers.json");
+                    members = dataManager.loadData();
+                    dataManager = new DataManager("coaches.json");
+                    coaches = dataManager.loadData();
+                    dataManager = new DataManager("gym.json");
+                } catch (Exception e) {
+                    System.out.println("CRITICAL ERROR: Failed to load data.");
+                }
+                // user handling
+                if (users.isEmpty()) {
+                    System.out.println("First time use detected, please create an Admin profile;");
+                    System.out.print("Please enter your username: ");
+                    String username = in.nextLine();
+                    while (true) {
+                        try {
+                            System.out.println();
+                            System.out.print("Please enter a strong password: ");
+                            String password = in.nextLine();
+                            user.register(UserType.ADMIN, username, password);
+                            break;
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                    users.add(user);
+                } else {
+                    while (user.getUsername() == null) {
+                        System.out.println("Type 'login' or 'register' to get started.");
+                        String input = in.next();
+                        switch (input.toLowerCase().trim()) {
+                            case "login": {
+                                System.out.print("Please enter your username: ");
+                                String username = in.nextLine().trim();
+                                System.out.println();
+                                System.out.print("Please enter your password: ");
+                                String password = in.nextLine().trim();
+                                try {
+                                    user.login(username, password);
+                                } catch (Exception e) {
+                                    System.out.println(e);
+                                }
+                            }
+                            case "register": {
+                                System.out.print("Please pick a user profile, type 'customer' or 'coach' to proceed: ");
+                                String userTypeStr = in.nextLine().trim();
+                                UserType userType = null;
+                                switch (userTypeStr.toLowerCase()) {
+                                    case "customer": {
+                                        userType = UserType.MEMBER;
+                                        break;
+                                    }
+                                    case "coach": {
+                                        userType = UserType.COACH;
+                                        break;
+                                    }
+                                }
+                                System.out.print("Please enter your username: ");
+                                String username = in.nextLine().trim();
+                                System.out.println();
+                                System.out.print("Please enter your password: ");
+                                String password = in.nextLine().trim();
+                                try {
+                                    if (userType == null) {
+                                        throw new Exception("Please pick a valid user profile.");
+                                    }
+                                    user.register(userType, username, password);
+                                } catch (Exception e) {
+                                    System.out.println(e);
+                                }
+                            }
+                        }
+                    }
+                }
+                // now we have a fully set-up user
+                switch(user.getType()) {
+                    case ADMIN: {
+                        // some code
+                        break;
+                    }
+                    case MEMBER: {
+                        // some code
+                        break;
+                    }
+                    case COACH: {
+                        // some code
+                        break;
+                    }
+                }
 
-            ArrayList<Object> dataToSave = new ArrayList<>();
-            dataToSave.add(c1);
-
-            // 2. Save dummy data to temp.json
-            System.out.println("Initializing DataManager to save...");
-            DataManager saver = new DataManager("temp.json");
-            saver.saveData(dataToSave);
-            System.out.println("Data successfully saved to temp.json!\n");
-
-            // 3. Load data from temp.json
-            System.out.println("Initializing DataManager to read...");
-            DataManager loader = new DataManager("temp.json");
-            ArrayList<Object> loadedData = loader.loadData();
-
-            // 4. Print loaded data
-            System.out.println("Loaded Data:");
-            for (Object obj : loadedData) {
-                System.out.println(obj.toString());
             }
-
-        } catch (Exception e) {
-            System.err.println("An error occurred in App: " + e.getMessage());
-            e.printStackTrace();
+        } finally {
+            in.close();
         }
     }
 }
