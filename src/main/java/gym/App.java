@@ -100,7 +100,117 @@ public class App {
             switch (user.getType()) {
                 case ADMIN: {
                     System.out.println("You're signed in as an admin, here are some available commands:");
-                    // implementation
+                    System.out.println(
+                            "add: adds a coach, equipment, or a customer to the gym. flags: --coach, --equipment, --customer.");
+                    System.out.println(
+                            "edit: modifies a coach, equipment, or a customer to the gym. flags: --coach, --equipment, --customer.");
+                    System.out.println(
+                            "delete: deletes a coach, equipment, or a customer to the gym. flags: --coach, --equipment, --customer.");
+                    String input = in.next().toLowerCase().trim();
+                    while (input != "exit") {
+                        switch (input) {
+                            case "add": {
+                                String flag = in.next().toLowerCase().trim();
+                                switch (flag) {
+                                    case "--customer": {
+                                        System.out.println("Creating new member, please enter a few details:");
+                                        System.out.print("Name: ");
+                                        String name = in.nextLine().trim();
+                                        System.out.print("\nGender: ");
+                                        String genderStr = in.nextLine().trim();
+                                        Gender gender = null;
+                                        switch (genderStr.toLowerCase()) {
+                                            case "male": {
+                                                gender = Gender.MALE;
+                                                break;
+                                            }
+                                            case "female": {
+                                                gender = Gender.FEMALE;
+                                            }
+                                        }
+                                        System.out.print("\nAddress: ");
+                                        String address = in.nextLine().trim();
+                                        System.out.print("\nPhone Number: ");
+                                        String phoneNumber = in.nextLine().trim();
+                                        System.out.print("\nEmail: ");
+                                        String email = in.nextLine().trim();
+                                        try {
+                                            System.out.println("Initializing object...");
+                                            members.add(new Customer((int) Math.random() * 10000, name, gender,
+                                                    address, phoneNumber, email,
+                                                    null, null));
+                                        } catch (Exception e) {
+                                            System.out.println("Error creating member: " + e.getMessage());
+                                        }
+                                        break;
+                                    }
+
+                                    case "--coach": {
+                                        System.out.println("Creating new coach, please enter a few details:");
+                                        System.out.print("Name: ");
+                                        String name = in.nextLine().trim();
+                                        System.out.print("\nGender: ");
+                                        String genderStr = in.nextLine().trim();
+                                        Gender gender = null;
+                                        switch (genderStr.toLowerCase()) {
+                                            case "male": {
+                                                gender = Gender.MALE;
+                                                break;
+                                            }
+                                            case "female": {
+                                                gender = Gender.FEMALE;
+                                            }
+                                        }
+                                        System.out.print("\nAddress: ");
+                                        String address = in.nextLine().trim();
+                                        System.out.print("\nAddress: ");
+                                        String phoneNumber = in.nextLine().trim();
+                                        System.out.print("\nAddress: ");
+                                        String email = in.nextLine().trim();
+                                        System.out.print("\nWorking Hours: ");
+                                        int wh = in.nextInt();
+                                        try {
+                                            coaches.add(new Coach((int) Math.random() * 10000, name, gender,
+                                                    address, phoneNumber, email, wh));
+                                        } catch (Exception e) {
+                                            System.out.println("Error creating member: " + e.getMessage());
+                                        }
+                                        break;
+                                    }
+
+                                    case "--equipment": {
+                                        if (gym == null) {
+                                            System.out.println("Cannot add equipment because gym data failed to load.");
+                                            break;
+                                        }
+                                        try {
+                                            System.out.println("Creating new equipment, please enter a few details:");
+                                            System.out.print("Name: ");
+                                            String name = in.nextLine().trim();
+                                            System.out.print("\nCode: ");
+                                            String code = in.nextLine().trim();
+                                            System.out.print("\nQuantity: ");
+                                            int quantity = in.nextInt();
+                                            gym.addSportsEquipment(new Equipment(name, code, quantity));
+                                        } catch (Exception e) {
+                                            System.out.println("Failed because: " + e.getMessage());
+                                        }
+                                        break;
+                                    }
+                                    
+                                }
+
+                                break;
+                            }
+                            case "edit": {
+                                        System.out.println("This feature will be avialable in the next stable or beta release :). This is still a work in progress.");
+                            }
+                            case "delete": {
+                                System.out.println("This feature will be avialable in the next stable or beta release :). This is still a work in progress.");
+                            }
+                        }
+                        input = in.next().toLowerCase().trim();
+                    }
                     break;
                 }
                 case MEMBER: {
@@ -135,7 +245,7 @@ public class App {
                             System.out.print("\nEmail: ");
                             String email = in.nextLine().trim();
                             try {
-                                member = new Customer(0, name, gender,
+                                member = new Customer((int) Math.random() * 10000, name, gender,
                                         address, phoneNumber, email,
                                         null, null);
                             } catch (Exception e) {
@@ -211,7 +321,7 @@ public class App {
                             System.out.print("\nAddress: ");
                             String email = in.nextLine().trim();
                             try {
-                                coach = new Coach(0, name, gender,
+                                coach = new Coach((int) Math.random() * 10000, name, gender,
                                         address, phoneNumber, email, 0);
                             } catch (Exception e) {
                                 System.out.println("Error creating member: " + e.getMessage());
