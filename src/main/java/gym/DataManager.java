@@ -74,4 +74,8 @@ public class DataManager {
     public ArrayList<Object> getData() {
         return this.data;
     }
+
+    public void changeFile(String filename){
+        this.filename = filename;
+    }
 }

@@ -16,12 +16,15 @@ public class Customer extends Person {
                     @JsonProperty("address") String address,
                     @JsonProperty("phoneNumber") String phoneNumber,
                     @JsonProperty("email") String email,
-                    @JsonProperty("subscription") Subscription sub,
+                    @JsonProperty("subscription") Subscription subscription,
                     @JsonProperty("inBodyRecords") ArrayList<InBody> inBodyRecords) throws Exception {
         super(id, name, gender, address, phoneNumber, email);
         // if(id != sub.getCustomerId()){
         //     throw new Exception("Provided subscription doesn't match provided customer ID.");
         // }
+        if (subscription != null){
+            this.subscription = subscription;
+        }
         if (inBodyRecords != null) {
             this.inBodyRecords = new ArrayList<>(inBodyRecords);
         }
@@ -82,14 +85,14 @@ public class Customer extends Person {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "id=" + getId() +
-                ", name='" + getName() + '\'' +
-                ", gender=" + getGender() +
-                ", address='" + getAddress() + '\'' +
-                ", phoneNumber='" + getPhoneNumber() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", inBodyRecords=" + inBodyRecords +
-                '}';
+        return "Customer:\n"
+            + "  ID: " + getId() + "\n"
+            + "  Name: " + getName() + "\n"
+            + "  Gender: " + getGender() + "\n"
+            + "  Address: " + getAddress() + "\n"
+            + "  Phone Number: " + getPhoneNumber() + "\n"
+            + "  Email: " + getEmail() + "\n"
+            + "  Subsciption: " + getSubscription() + "\n"
+            + "  InBody Records: " + getInBodyRecords();
     }
 }

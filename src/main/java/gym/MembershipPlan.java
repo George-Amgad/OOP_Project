@@ -91,4 +91,11 @@ public class MembershipPlan {
         }
         return (int) ChronoUnit.MONTHS.between(date1, date2);
     }
+
+    public String toString(){
+        String result = "Membership Plan:\n\tMonthly Plan: " + monthlyPlan
+        + "\n\tMonths Registered: " + monthsRegistered + "\n\tPrice: "
+        + price + "Start Date: " + startDate;
+        return result;
+    }
 }
