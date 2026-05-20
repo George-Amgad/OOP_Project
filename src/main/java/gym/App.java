@@ -106,8 +106,14 @@ public class App {
                             "edit: modifies a coach, equipment, or a customer to the gym. flags: --coach, --equipment, --customer.");
                     System.out.println(
                             "delete: deletes a coach, equipment, or a customer to the gym. flags: --coach, --equipment, --customer.");
+                    System.out.println(
+                            "exit: exit the program.");
                     String input = in.next().toLowerCase().trim();
                     while (input != "exit") {
+                        // System.out.println("Detected Input: \"" + input + "\""); // for debugging
+                        // if(input == "exit"){
+                        //     break;
+                        // }
                         switch (input) {
                             case "add": {
                                 String flag = in.next().toLowerCase().trim();
@@ -148,9 +154,9 @@ public class App {
                                     case "--coach": {
                                         System.out.println("Creating new coach, please enter a few details:");
                                         System.out.print("Name: ");
-                                        String name = in.nextLine().trim();
+                                        String name = in.next().trim();
                                         System.out.print("\nGender: ");
-                                        String genderStr = in.nextLine().trim();
+                                        String genderStr = in.next().trim();
                                         Gender gender = null;
                                         switch (genderStr.toLowerCase()) {
                                             case "male": {
@@ -162,11 +168,11 @@ public class App {
                                             }
                                         }
                                         System.out.print("\nAddress: ");
-                                        String address = in.nextLine().trim();
+                                        String address = in.next().trim();
                                         System.out.print("\nAddress: ");
-                                        String phoneNumber = in.nextLine().trim();
+                                        String phoneNumber = in.next().trim();
                                         System.out.print("\nAddress: ");
-                                        String email = in.nextLine().trim();
+                                        String email = in.next().trim();
                                         System.out.print("\nWorking Hours: ");
                                         int wh = in.nextInt();
                                         try {
@@ -186,9 +192,9 @@ public class App {
                                         try {
                                             System.out.println("Creating new equipment, please enter a few details:");
                                             System.out.print("Name: ");
-                                            String name = in.nextLine().trim();
+                                            String name = in.next().trim();
                                             System.out.print("\nCode: ");
-                                            String code = in.nextLine().trim();
+                                            String code = in.next().trim();
                                             System.out.print("\nQuantity: ");
                                             int quantity = in.nextInt();
                                             gym.addSportsEquipment(new Equipment(name, code, quantity));
@@ -197,16 +203,21 @@ public class App {
                                         }
                                         break;
                                     }
-                                    
+
                                 }
 
                                 break;
                             }
                             case "edit": {
-                                        System.out.println("This feature will be avialable in the next stable or beta release :). This is still a work in progress.");
+                                System.out.println(
+                                        "This feature will be avialable in the next stable or beta release :). This is still a work in progress.");
                             }
                             case "delete": {
-                                System.out.println("This feature will be avialable in the next stable or beta release :). This is still a work in progress.");
+                                System.out.println(
+                                        "This feature will be avialable in the next stable or beta release :). This is still a work in progress.");
+                            }
+                            case "exit": {
+                                break;
                             }
                         }
                         input = in.next().toLowerCase().trim();
@@ -225,11 +236,11 @@ public class App {
                         while (true) {
                             System.out.println("New member detected, please enter a few details:");
                             System.out.print("Name: ");
-                            String name = in.nextLine().trim();
+                            String name = in.next().trim();
                             System.out.print("\nGender: ");
-                            String genderStr = in.nextLine().trim();
+                            String genderStr = in.next().toLowerCase().trim();
                             Gender gender = null;
-                            switch (genderStr.toLowerCase()) {
+                            switch (genderStr) {
                                 case "male": {
                                     gender = Gender.MALE;
                                     break;
@@ -239,11 +250,11 @@ public class App {
                                 }
                             }
                             System.out.print("\nAddress: ");
-                            String address = in.nextLine().trim();
+                            String address = in.next().trim();
                             System.out.print("\nPhone Number: ");
-                            String phoneNumber = in.nextLine().trim();
+                            String phoneNumber = in.next().trim();
                             System.out.print("\nEmail: ");
-                            String email = in.nextLine().trim();
+                            String email = in.next().trim();
                             try {
                                 member = new Customer((int) Math.random() * 10000, name, gender,
                                         address, phoneNumber, email,
@@ -257,7 +268,7 @@ public class App {
                     System.out.println("cinfo: display coach info.\neqdisplay: display gym equipment.");
                     System.out.println("plan: display your membership plan details.");
                     System.out.println("inbody: display inbody information.\nexit: exit the program.");
-                    String input = in.nextLine().toLowerCase().trim();
+                    String input = in.next().toLowerCase().trim();
                     while (input != "exit") {
                         switch (input) {
                             case "cinfo": {
@@ -283,8 +294,11 @@ public class App {
                                 }
                                 break;
                             }
+                            case "exit": {
+                                break;
+                            }
                         }
-                        input = in.nextLine().toLowerCase().trim();
+                        input = in.next().toLowerCase().trim();
                     }
                     break;
                 }
@@ -301,11 +315,11 @@ public class App {
                         while (true) {
                             System.out.println("New coach detected, please enter a few details:");
                             System.out.print("Name: ");
-                            String name = in.nextLine().trim();
+                            String name = in.next().trim();
                             System.out.print("\nGender: ");
-                            String genderStr = in.nextLine().trim();
+                            String genderStr = in.next().toLowerCase().trim();
                             Gender gender = null;
-                            switch (genderStr.toLowerCase()) {
+                            switch (genderStr) {
                                 case "male": {
                                     gender = Gender.MALE;
                                     break;
@@ -315,11 +329,11 @@ public class App {
                                 }
                             }
                             System.out.print("\nAddress: ");
-                            String address = in.nextLine().trim();
+                            String address = in.next().trim();
                             System.out.print("\nAddress: ");
-                            String phoneNumber = in.nextLine().trim();
+                            String phoneNumber = in.next().trim();
                             System.out.print("\nAddress: ");
-                            String email = in.nextLine().trim();
+                            String email = in.next().trim();
                             try {
                                 coach = new Coach((int) Math.random() * 10000, name, gender,
                                         address, phoneNumber, email, 0);
@@ -363,7 +377,7 @@ public class App {
                             }
                             case "cfilter": {
                                 try {
-                                    String genderStr = in.nextLine().toLowerCase().trim();
+                                    String genderStr = in.next().toLowerCase().trim();
                                     Gender gender = null;
                                     switch (genderStr) {
                                         case "male": {

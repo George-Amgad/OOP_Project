@@ -15,6 +15,7 @@ public class DataManager {
 
     public DataManager(String filename) {
         this.filename = filename;
+        // if a file with filename does not exist, create one
         this.data = new ArrayList<>();
         this.mapper = new ObjectMapper();
         this.mapper.registerModule(new JavaTimeModule()); // Required to handle LocalDate
@@ -27,7 +28,7 @@ public class DataManager {
         for (Object obj : dataToSave) {
             if (obj != null) {
                 String className = obj.getClass().getName();
-                
+
                 // If we haven't seen this class yet, initialize its list
                 if (!structuredMap.containsKey(className)) {
                     structuredMap.put(className, new ArrayList<>());
@@ -41,33 +42,35 @@ public class DataManager {
         mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filename), structuredMap);
     }
 
-    // Detects class names from keys, calls constructors, and recursively builds inner lists
+    // Detects class names from keys, calls constructors, and recursively builds
+    // inner lists
     @SuppressWarnings("unchecked")
     public ArrayList<Object> loadData() throws Exception {
         File file = new File(filename);
-        if (!file.exists() || file.length() == 0) {
-            return new ArrayList<>();
-        }
-
-        data.clear();
-        
-        // 1. Read the JSON file into a basic Map structure
-        Map<String, List<?>> rawMap = mapper.readValue(file, Map.class);
-
-        // 2. Loop through each class name key found in the JSON file
-        for (String className : rawMap.keySet()) {
-            Class<?> targetClass = Class.forName(className); // Find the actual Java class
-            List<?> rawList = rawMap.get(className);
-
-            // 3. Convert each raw object into its true class type
-            for (Object rawObject : rawList) {
-                // convertValue automatically triggers the @JsonCreator constructors 
-                // and recursively converts inner lists (like ArrayList<InBody>) automatically!
-                Object realObject = mapper.convertValue(rawObject, targetClass);
-                data.add(realObject);
+            if (!file.exists() || file.length() == 0) {
+                return new ArrayList<>();
             }
-        }
 
+            data.clear();
+
+            // 1. Read the JSON file into a basic Map structure
+            Map<String, List<?>> rawMap = mapper.readValue(file, Map.class);
+
+            // 2. Loop through each class name key found in the JSON file
+            for (String className : rawMap.keySet()) {
+                Class<?> targetClass = Class.forName(className); // Find the actual Java class
+                List<?> rawList = rawMap.get(className);
+
+                // 3. Convert each raw object into its true class type
+                for (Object rawObject : rawList) {
+                    // convertValue automatically triggers the @JsonCreator constructors
+                    // and recursively converts inner lists (like ArrayList<InBody>) automatically!
+                    Object realObject = mapper.convertValue(rawObject, targetClass);
+                    data.add(realObject);
+                }
+            }
+        
+        
         return data;
     }
 
@@ -75,7 +78,7 @@ public class DataManager {
         return this.data;
     }
 
-    public void changeFile(String filename){
+    public void changeFile(String filename) {
         this.filename = filename;
     }
 }

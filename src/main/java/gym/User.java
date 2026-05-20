@@ -1,6 +1,7 @@
 package gym;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -73,7 +74,12 @@ public class User {
         if (password.contains(" ") || password.length() < 8) {
             return false;
         }
-        if (password.contains("[A-Z]") && password.contains("[a-z]") && password.contains("[0-9]")) {
+        Pattern p1 = Pattern.compile("[a-z]"),
+                p2 = Pattern.compile("[A-Z]"),
+                p3 = Pattern.compile("[0-9]");
+        if (p1.matcher(password).find()
+                && p2.matcher(password).find()
+                && p3.matcher(password).find()) {
             return true;
         }
         return false;
@@ -108,14 +114,19 @@ public class User {
                     "Invalid password, passwords must be at least 8 characters long, with at least one uppercase, lowercase, number and special character. And spaces are not allowed.");
         }
         int idx = 0;
-        for (Object entry : User.userDataBase) {
-            User user = (User) entry;
-            if (user.username == username) {
-                throw new IllegalArgumentException("A user with that name already exists.");
+        if (userDataBase == null) {
+            this.id = idx;
+        } else {
+            for (Object entry : User.userDataBase) {
+                User user = (User) entry;
+                if (user.username == username) {
+                    throw new IllegalArgumentException("A user with that name already exists.");
+                }
+                idx = Math.max(idx, user.getId());
             }
-            idx = Math.max(idx, user.getId());
+            this.id = idx + 1;
         }
-        id = idx + 1;
+        
         setType(type);
         setUsername(username);
         this.password = password;
