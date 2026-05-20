@@ -65,7 +65,7 @@ public class User {
         }
         if (!verifyPassword(newPassword)) {
             throw new IllegalArgumentException(
-                    "Invalid password, passwords must be at least 8 characters long, with at least one uppercase, lowercase, number and special character. And spaces are not allowed.");
+                    "Invalid password, passwords must be at least 8 characters long, with at least one uppercase, lowercase and number. Spaces are not allowed.");
         }
     }
 
@@ -73,8 +73,7 @@ public class User {
         if (password.contains(" ") || password.length() < 8) {
             return false;
         }
-        if (password.contains("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]") && password.contains("[abcdefghijklmnopqrstuvwxyz]")
-                && password.contains("[0123456789]")) {
+        if (password.contains("[A-Z]") && password.contains("[a-z]") && password.contains("[0-9]")) {
             return true;
         }
         return false;
